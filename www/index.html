@@ -11,12 +11,14 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: gap: https://ssl.gstatic.com  ; style-src 'self' 'unsafe-inline' ; media-src *">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: gap: https://ssl.gstatic.com  http://fonts.googleapis.com/; style-src 'self' http://fonts.googleapis.com/ 'unsafe-inline' ; media-src *;font-src 'self' http://fonts.googleapis.com/ http://fonts.gstatic.com">
 	<meta name="format-detection" content="telephone=no">
 	<meta name="msapplication-tap-highlight" content="no">
 	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<link rel="stylesheet" type="text/css" href="js/jquery-1.5.0.mobile.min.css">
+	<link rel="stylesheet" href="skin/vendor/waves/waves.min.css" />
+	<link rel="stylesheet" href="skin/css/nativedroid2.css" />
 	<style>
 		/* For avoiding title truncation in wp8 */
 		
@@ -31,28 +33,62 @@
 			position: relative !important;
 		}
 	</style>
-	<title>Hello World</title>
+	<title>Sistema de notificaciones CRSUR</title>
 </head>
 
 <body>
 
 	<div data-role="page" id="index">
 		<header data-role="header">
-			<h1>Top title bar</h1>
+			<a href="#menuPanel" data-role="button" class="ui-btn-left wow fadeIn ui-btn waves-effect waves-button waves-effect waves-button">
+				<i class="zmdi zmdi-menu"></i>
+			</a>
+			<h1>Notificaciones</h1>
+		</header>
+ 		<div data-role="panel" id="menuPanel" data-display="overlay">
+    		<h3>Menu</h3>
+			 <ul data-role="listview">
+      			<li><a href="#">Cerrar sesión</a></li>
+      			<li><a href="#about">Acerca de</a></li>
+    		</ul>
+  		</div>
+		<div data-role="content">
+			  <form class="ui-filterable">
+      			<input id="mainFilter" data-type="search">
+    		  </form>
+			 <div data-role="collapsibleset" data-filter="true" data-inset="true" id="mainList" data-input="#mainFilter">
+				 <div data-role="collapsible" >
+        			<h3>Elemento estático</h3>
+        			<p>Detalle</p>
+				 </div>
+			</div>		 
+		</div>
+	</div>
+
+	<div data-role="page" id="login">
+		<header data-role="header">
+			<h1>ACerca de</h1>
 		</header>
 
 		<div data-role="content">
-			<h3>Show another page??</h3>
-			<p>hint: click the button below!</p>
-			<p><a href="#about" data-role="button" data-theme="c">About us</a></p>
+			<p>Blah Blah</p>
 		</div>
-
-		<footer data-role="footer">
-			<h2>&copy; footer here.</h2>
-		</footer>
 	</div>
 
 	<div data-role="page" id="about">
+		<header data-role="header">
+			<h1>Acerca de</h1>
+			<a href="#index" data-role="button" class="ui-btn-left wow fadeIn ui-btn waves-effect waves-button waves-effect waves-button">
+				<i class="zmdi zmdi-menu"></i>
+			</a>
+		</header>
+
+		<div data-role="content">
+			<p>just some extra content as well.</p>
+		</div>
+	</div>
+	
+	<div data-role="page" id="detail">
 		<header data-role="header">
 			<h1>Page 2 Here</h1>
 		</header>
@@ -73,6 +109,10 @@
 		});
 		</script>
 	<script type="text/javascript" src="js/jquery-1.5.0.mobile.min.js"></script>
+	<script src="skin/vendor/waves/waves.min.js"></script>
+	<script src="skin/js/nativedroid2.js"></script>
+	<script src="skin/nd2settings.js"></script>
+
 	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
 </body>

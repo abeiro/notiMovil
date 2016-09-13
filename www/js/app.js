@@ -1,7 +1,6 @@
  
-
- 
  function initSystem() {
-        alert("Hola mundo");
+ 
+    console.log("fuuu")    
      
  }
