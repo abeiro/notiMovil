@@ -126,3 +126,38 @@ h1 {
 .example-wrapper, .example-wrapper div.iscroll-scroller {
     width: 100% !important;
 }
+
+span.listdate {
+	font-size: x-small;
+	text-transform: none;
+}
+
+#mainList  li p {
+	margin: 0px;
+}
+#menuPanel h3 {
+
+}
+
+div.ui-loader span.ui-icon-loading{
+	background: url(../img/loading_big.gif);
+	background-size: 100% 100%;
+}
+
+#mainList > li {
+	margin-left:20px;
+	/* bordeR: 1px solid; */
+}
+
+#mainList {
+	margin-top: 5px !important;
+	border-top: 0px solid black;
+	padding-top: 5px;
+	box-shadow: none;
+}
+
+#mainList > li >p >a {
+	font-size: medium;
+	text-decoration:none;
+	
+}

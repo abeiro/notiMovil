@@ -10,9 +10,13 @@
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "es.crsur.notimovil"
         },
-        "cordova-plugin-browsersync": {
+        "cordova-plugin-background-mode": {
             "PACKAGE_NAME": "es.crsur.notimovil"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "es.crsur.notimovil"
+        }
+    }
 }
