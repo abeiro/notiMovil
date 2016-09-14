@@ -13,6 +13,7 @@
         -->
 	<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: gap: https://ssl.gstatic.com  http://fonts.googleapis.com/ https://dmz.cajaruraldelsur.es; style-src 'self' http://fonts.googleapis.com/ 'unsafe-inline' ; media-src *;font-src 'self' http://fonts.googleapis.com/ http://fonts.gstatic.com">
 	<meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 	<meta name="msapplication-tap-highlight" content="no">
 	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
 	<link rel="stylesheet" type="text/css" href="css/index.css">
@@ -54,7 +55,7 @@
   		</div>
 		<div data-role="content">
 			  <form class="ui-filterable">
-      			<input id="mainFilter" data-type="search">
+      			<input id="mainFilter" data-type="search" placeholder="Buscar...">
     		  </form>
 			 <div data-role="collapsibleset" data-filter="true" data-inset="true" id="mainList" data-input="#mainFilter">
 				 <div data-role="collapsible" >
@@ -67,11 +68,22 @@
 
 	<div data-role="page" id="login">
 		<header data-role="header">
-			<h1>ACerca de</h1>
+			<h1>Login</h1>
 		</header>
 
 		<div data-role="content">
-			<p>Blah Blah</p>
+			<p>Especifique usuario y contraseña</p>
+			<form id="formulario" >
+      
+      			<label> Usuario </label>
+      			<input type="text" id="user" name="user">
+      
+      			<label> Password </label>
+     			<input type="password" id="password" name="password" >
+
+      			<input type="button" value="Entrar" id="loginButton">
+      
+    		</form>		
 		</div>
 	</div>
 

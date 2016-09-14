@@ -9,6 +9,9 @@
     "installed_plugins": {
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "es.crsur.notimovil"
+        },
+        "cordova-plugin-browsersync": {
+            "PACKAGE_NAME": "es.crsur.notimovil"
         }
     },
     "dependent_plugins": {}
