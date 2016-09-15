@@ -128,9 +128,7 @@ span.listdate {
 #mainList  li p {
 	margin: 0px;
 }
-#menuPanel h3 {
-
-}
+#menuPanel h3 {color: transparent;text-shadow: none;}
 
 div.ui-loader span.ui-icon-loading{
 	background: url(../img/loading_big.gif);
@@ -188,3 +186,5 @@ div.ui-loader span.ui-icon-loading{
 h1,h2,h3,p {
 	text-transform:none;
 }
+
+#menuHead {background-image: url(../img/logo.jpg);background-size: auto 100%;background-repeat: no-repeat;background-position: center;background-color: #006c52;padding: 0px;margin: 0px;width: 100%;height: 20%;}
