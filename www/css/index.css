@@ -115,14 +115,7 @@ h1 {
 }
 
 
-.ui-content {
-    padding: 0 !important;
-}
-  
-.ui-listview {
-    margin: 0 !important;
-}
-  
+ 
 .example-wrapper, .example-wrapper div.iscroll-scroller {
     width: 100% !important;
 }
@@ -145,8 +138,11 @@ div.ui-loader span.ui-icon-loading{
 }
 
 #mainList > li {
-	margin-left:20px;
+	margin-left: 5px;
 	/* bordeR: 1px solid; */
+	box-shadow: 5px 5px 10px 0px lightgrey;
+	padding: 5px;
+	margin-bottom: 5px;
 }
 
 #mainList {
@@ -160,4 +156,35 @@ div.ui-loader span.ui-icon-loading{
 	font-size: medium;
 	text-decoration:none;
 	
+}
+/* hack for input searcgh box */
+
+.ui-input-search.ui-input-has-clear .ui-btn.ui-input-clear, .ui-input-text.ui-input-has-clear .ui-btn.ui-input-clear {
+	
+
+}
+.ui-icon-delete:after{
+    background-image: url(../img/delete_icon.svg);
+    background-size: 75% 75%;
+	
+}
+
+.ui-input-text:after, .ui-input-search:after {
+	height:0px;
+}
+
+.ui-input-text.ui-focus:after,
+.ui-input-search.ui-focus:after {
+	background-color: #4CAF50;
+	height: 0px;
+}
+
+.ui-input-text input, .ui-input-search input, textarea.ui-input-text.ui-textinput-autogrow {
+	border:1px solid lightgray;
+	padding:2px;;
+	
+}
+
+h1,h2,h3,p {
+	text-transform:none;
 }

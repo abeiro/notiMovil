@@ -2,20 +2,6 @@ var BACKEND = "https://dmz.cajaruraldelsur.es/ws/notiMovil/";
 var client = null;
 
 
-function parse(val) {
-    var result = "Not found",
-        tmp = [];
-    location.search
-    //.replace ( "?", "" ) 
-    // this is better, there might be a question mark inside
-    .substr(1)
-        .split("&")
-        .forEach(function (item) {
-        tmp = item.split("=");
-        if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
-    });
-    return result;
-}
 
 function Client() {
     this.token = null;
@@ -70,10 +56,44 @@ Client.prototype.list = function () {
 				markup="";
 				$.each(e.datalist, function(index, value) {
 					console.log(value);
-					markup += "<li  ><p><a href='#detail' ca='"+value.IDI+"'>"+value.ASUNTO+"</a></p><span class='listdate'>"+value.FECHA+"</span></li>";
+					markup += "<li  ><p><a class='clickable' ca='"+value.IDI+"'>"+value.ASUNTO+"</a></p><span class='listdate'>"+value.FECHA+"</span></li>";
 				});
                 $("#mainList").html(markup)
 				$("#mainList").listview();
+				$("a.clickable").on("click",function(e) {
+					 _this.getDetail(e.originalEvent.currentTarget.getAttribute("ca"), function(pp) {
+						 $("#notTitle").html(pp.data.ASUNTO);
+						 $("#notDetail").html(pp.data.TXT);
+						 $("#notAttachment").html(pp.data.DE);
+						 
+						 $("body").pagecontainer("change", "#detail");
+					 });
+					
+				});
+			}
+        },
+        error: function () {
+           console.error("error");
+        }
+    });
+}
+
+Client.prototype.getDetail = function (idi,callback) {
+	_this=this;
+    $.ajax({
+        type: "POST",
+        url: BACKEND,
+        crossDomain: true,
+        beforeSend: function () { $.mobile.loading('show') },
+        complete: function () { $.mobile.loading('hide') },
+        data: { "TOKEN": this.token,"IDI":idi,"COMMAND":"DETAIL" },
+        dataType: 'json',
+        success: function (e) {
+            if (e.status == "KO") {
+                console.log(e);
+			}
+            else {
+				callback(e);
 			}
         },
         error: function () {
@@ -131,9 +151,9 @@ function initSystem() {
 	});
 	
 	$( "#detail" ).on( "pagebeforeshow", function( event, ui ) {
-		// load event data now
-		debugger;
-		console.log("IDI to load:"+parse("IDI"));
+		
+		
+		
 	} );
 	
 	/* Background mode */
