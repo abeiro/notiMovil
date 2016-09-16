@@ -137,10 +137,10 @@ div.ui-loader span.ui-icon-loading{
 
 #mainList > li {
 	margin-left: 5px;
-	/* bordeR: 1px solid; */
-	box-shadow: 5px 5px 10px 0px lightgrey;
-	padding: 5px;
+	
+	padding: 10px;
 	margin-bottom: 5px;
+	border-bottom:1px solid lightgrey;
 }
 
 #mainList {
@@ -155,6 +155,20 @@ div.ui-loader span.ui-icon-loading{
 	text-decoration:none;
 	
 }
+
+#mainList > li.received >p >a {
+	font-size: medium;
+	text-decoration:none;
+	opacity:0.75;
+	font-style:italic;
+}
+#mainList > li.received > span {
+	
+	text-decoration:none;
+	opacity:0.75;
+	font-style:italic;
+}
+
 /* hack for input searcgh box */
 
 .ui-input-search.ui-input-has-clear .ui-btn.ui-input-clear, .ui-input-text.ui-input-has-clear .ui-btn.ui-input-clear {
@@ -188,3 +202,9 @@ h1,h2,h3,p {
 }
 
 #menuHead {background-image: url(../img/logo.jpg);background-size: auto 100%;background-repeat: no-repeat;background-position: center;background-color: #006c52;padding: 0px;margin: 0px;width: 100%;height: 20%;}
+
+
+#userLabel {
+	text-transform:none;
+	font-style:italic;
+}

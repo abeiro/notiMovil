@@ -7,7 +7,7 @@ function Client() {
     this.token = null;
     this.backend = BACKEND;
 	this.token = window.localStorage.getItem("AUTHTOKEN");
-	$("#userLabel").html(window.localStorage.getItem("LASTUSER"))
+	$("#userLabel").html("Conectado como: " +window.localStorage.getItem("LASTUSER"))
 
 	
 }
@@ -56,16 +56,23 @@ Client.prototype.list = function () {
 				markup="";
 				$.each(e.datalist, function(index, value) {
 					console.log(value);
-					markup += "<li  ><p><a class='clickable' ca='"+value.IDI+"'>"+value.ASUNTO+"</a></p><span class='listdate'>"+value.FECHA+"</span></li>";
+					if (value.RECIBIDO!=null) 
+						cssclass="received";
+					else
+						cssclass=""; 
+						 
+
+					markup += "<li  class='clickable "+cssclass+"' ca='"+value.IDI+"'><p><a >"+value.ASUNTO+"</a></p><span class='listdate'>"+value.FECHA+"</span></li>";
 				});
                 $("#mainList").html(markup)
 				$("#mainList").listview();
-				$("a.clickable").on("click",function(e) {
+				$("li.clickable").on("click",function(e) {
+					  _oevent=e.originalEvent.currentTarget;
 					 _this.getDetail(e.originalEvent.currentTarget.getAttribute("ca"), function(pp) {
 						 $("#notTitle").html(pp.data.ASUNTO);
 						 $("#notDetail").html(pp.data.TXT);
 						 $("#notAttachment").html(pp.data.DE);
-						 
+						 _oevent.className += "received" ;
 						 $("body").pagecontainer("change", "#detail");
 					 });
 					
@@ -120,7 +127,7 @@ Client.prototype.login = function (user,password) {
 				_this.token=e.token;
 				window.localStorage.setItem("AUTHTOKEN",e.token);
 				window.localStorage.setItem("LASTUSER",user)
-				$("#userLabel").html(user)
+				$("#userLabel").html("Conectado como: "+user)
 				$("body").pagecontainer("change", "#index");
 				_this.list();
                 console.log(e);
@@ -132,9 +139,21 @@ Client.prototype.login = function (user,password) {
     });
 }
 
+function updateHandler(data) {
+	if (data.LatestResult != null) {
+      try {
+         console.log("Update received");
+      } catch (err) {
+      }
+   }
+	
+	
+}
 
 function initSystem() {
 
+	
+	 
 	$("body").css("visibility","visible")
 	
     console.log("Starting Core");
@@ -166,6 +185,40 @@ function initSystem() {
 		});
 	} catch (e) {}
 
+	try {
+		var serviceName = 'com.red_folder.phonegap.plugin.backgroundservice.NotiMovilService';
+		var factory = cordova.require('com.red_folder.phonegap.plugin.backgroundservice.BackgroundService')
+		myService = factory.create(serviceName);
+
+		myService.getStatus(function(r){
+			if (r.ServiceRunning==false) {
+				myService.startService(function(r){
+					console.log(r) 
+					myService.enableTimer(60000, 
+						function(r){
+							if (!r.RegisteredForUpdates) {
+								myService.registerForUpdates(function(r){
+									updateHandler(r)
+									
+								}, function(e){
+									console.log(e);
+									
+								});
+							}
+							
+						},function(r){
+							console.log(r)
+							
+						});
+				},function(r){
+					console.log(r)
+					
+				});
+				
+			}
+			
+		});
+	} catch (e) {}
 	
 	/* Prevent exit on back button */
 	document.addEventListener("backbutton", function(e){
