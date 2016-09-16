@@ -15,7 +15,7 @@ import java.util.Date;
 
 public class NotiMovilService extends BackgroundService {
 
-    JSONObject currentConf;
+    JSONObject currentConf=null;
     @Override
     protected JSONObject doWork() {
         JSONObject result = new JSONObject();
@@ -25,7 +25,8 @@ public class NotiMovilService extends BackgroundService {
             SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             String now = df.format(new Date(System.currentTimeMillis()));
             String msg = " " + now;
-
+            if (currentConf!=null)
+                msg+=" token: "+currentConf.get("token");
             // We output the message to the logcat
             Log.d("NotiMovilService", msg);
 
@@ -46,7 +47,10 @@ public class NotiMovilService extends BackgroundService {
 
     @Override
     protected void setConfig(JSONObject config) {
-        Log.d("NotiMovilService", "Setting config");
+        try {
+            Log.d("NotiMovilService", "Setting config: "+config.get("token").toString());
+
+        } catch (JSONException e) {}
         currentConf=config;
     }
 

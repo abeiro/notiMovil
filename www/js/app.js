@@ -1,5 +1,6 @@
 var BACKEND = "https://dmz.cajaruraldelsur.es/ws/notiMovil/";
 var client = null;
+var myService=null;
 
 
 
@@ -8,7 +9,15 @@ function Client() {
     this.backend = BACKEND;
 	this.token = window.localStorage.getItem("AUTHTOKEN");
 	$("#userLabel").html("Conectado como: " +window.localStorage.getItem("LASTUSER"))
-
+	debugger;
+	if (this.token!=null) {
+		if (myService!=null) {
+				myService.setConfiguration({"token":this.token});
+			
+			
+		}
+		
+	}
 	
 }
 
@@ -125,6 +134,13 @@ Client.prototype.login = function (user,password) {
 			}
             else {
 				_this.token=e.token;
+				
+				if (_this.token!=null) {
+					if (myService!=null) {
+						myService.setConfiguration({"token":_this.token});
+					}
+				}
+	
 				window.localStorage.setItem("AUTHTOKEN",e.token);
 				window.localStorage.setItem("LASTUSER",user)
 				$("#userLabel").html("Conectado como: "+user)
@@ -152,28 +168,6 @@ function updateHandler(data) {
 
 function initSystem() {
 
-	
-	 
-	$("body").css("visibility","visible")
-	
-    console.log("Starting Core");
-    client = new Client();
-    client.connect();
-
-	/* Listeners */
-	$('#loginButton').click(function() { 
-		client.login($("#user").val(),$("#password").val());
-	});
-	
-	$('#exitApp').click(function() { 
-		navigator.app.exitApp();
-	});
-	
-	$( "#detail" ).on( "pagebeforeshow", function( event, ui ) {
-		
-		
-		
-	} );
 	
 	/* Background mode */
 	try {
@@ -215,10 +209,51 @@ function initSystem() {
 					
 				});
 				
+			} else {
+				myService.enableTimer(60000, 
+					function(r){
+						if (!r.RegisteredForUpdates) {
+							myService.registerForUpdates(function(r){
+								updateHandler(r)
+								
+						}, function(e){
+									console.log(e);
+								
+							});
+						}
+						
+					},function(r){
+						console.log(r)
+						
+					});
 			}
+			
 			
 		});
 	} catch (e) {}
+	
+	
+	$("body").css("visibility","visible")
+	
+    console.log("Starting Core");
+    client = new Client();
+    client.connect();
+
+	/* Listeners */
+	$('#loginButton').click(function() { 
+		client.login($("#user").val(),$("#password").val());
+	});
+	
+	$('#exitApp').click(function() { 
+		navigator.app.exitApp();
+	});
+	
+	$( "#detail" ).on( "pagebeforeshow", function( event, ui ) {
+		
+		
+		
+	} );
+	
 	
 	/* Prevent exit on back button */
 	document.addEventListener("backbutton", function(e){
