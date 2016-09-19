@@ -158,7 +158,7 @@ public class NotiMovilService extends BackgroundService {
                     .setContentText("La configuración de la cuenta es incorrecta")
                     .setSmallIcon(android.R.drawable.ic_dialog_alert)
                     .setContentIntent(pIntent)
-                    //.setAutoCancel(true)
+                    .setAutoCancel(true)
                     //.addAction(R.drawable.icon, "Call", pIntent)
                     //.addAction(R.drawable.icon, "More", pIntent)
                     //.addAction(R.drawable.icon, "And more", pIntent
@@ -168,6 +168,7 @@ public class NotiMovilService extends BackgroundService {
             NotificationManager notificationManager =
                     (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
+            n.defaults |= Notification.DEFAULT_SOUND;
 
             notificationManager.notify((int) System.currentTimeMillis(), n);
 
@@ -192,13 +193,13 @@ public class NotiMovilService extends BackgroundService {
                     .setContentText("Tiene notificaciones sin leer")
                     .setSmallIcon(android.R.drawable.ic_dialog_info)
                     .setContentIntent(pIntent)
-                    //.setAutoCancel(true)
+                    .setAutoCancel(true)
                     //.addAction(R.drawable.icon, "Call", pIntent)
                     //.addAction(R.drawable.icon, "More", pIntent)
                     //.addAction(R.drawable.icon, "And more", pIntent
                     .build();
 
-
+            n.defaults |= Notification.DEFAULT_SOUND;
             NotificationManager notificationManager =
                     (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
