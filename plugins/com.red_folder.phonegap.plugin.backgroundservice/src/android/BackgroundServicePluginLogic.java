@@ -1,21 +1,21 @@
 package com.red_folder.phonegap.plugin.backgroundservice;
 
-import java.util.Enumeration;
-import java.util.Hashtable;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
-import android.content.ServiceConnection;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 public class BackgroundServicePluginLogic {
 
@@ -779,12 +779,14 @@ public class BackgroundServicePluginLogic {
 		private JSONObject getConfiguration()
 		{
 			JSONObject result = null;
-			
+			String data="";
 			try {
-				String data = mApi.getConfiguration();
+				data = mApi.getConfiguration();
+				if ((data==null)||(data==""))
+					return null;
 				result = new JSONObject(data);
 			} catch (Exception ex) {
-				Log.d(LOCALTAG, "getConfiguration failed", ex);
+				Log.d(LOCALTAG, "getConfiguration failed:<"+data+">", ex);
 			}
 			
 			return result;

@@ -157,12 +157,19 @@ Client.prototype.login = function (user,password) {
 
 function updateHandler(data) {
 	if (data.LatestResult != null) {
-      try {
-         console.log("Update received");
-      } catch (err) {
+		console.log("BGSERVICE: Update received:");
+		try {
+			if (data.LatestResult.cmd=="REQ_CONFIG") {
+				myService.setConfiguration({"token":client.token});
+				console.log("myService.setConfiguration({'token':"+client.token+"});");
+			}
+      
+			
+			console.log(data);
+		} catch (err) {
+			
       }
    }
-	
 	
 }
 
@@ -170,7 +177,7 @@ function initSystem() {
 
 	
 	/* Background mode */
-	try {
+	/*try {
 		cordova.plugins.backgroundMode.enable();
 		cordova.plugins.backgroundMode.setDefaults({
 			title:  "notiMovil",
@@ -178,7 +185,7 @@ function initSystem() {
 			
 		});
 	} catch (e) {}
-
+	*/
 	try {
 		var serviceName = 'com.red_folder.phonegap.plugin.backgroundservice.NotiMovilService';
 		var factory = cordova.require('com.red_folder.phonegap.plugin.backgroundservice.BackgroundService')
@@ -186,43 +193,56 @@ function initSystem() {
 
 		myService.getStatus(function(r){
 			if (r.ServiceRunning==false) {
+				console.log("BGSERVICE: Starting service");
 				myService.startService(function(r){
 					console.log(r) 
+					console.log("BGSERVICE: Setting timer");
 					myService.enableTimer(60000, 
 						function(r){
+							console.log("BGSERVICE: enableTimer done");
 							if (!r.RegisteredForUpdates) {
+								console.log("BGSERVICE: RegisteredForUpdates ...");
 								myService.registerForUpdates(function(r){
+									console.log("BGSERVICE: registerForUpdates done");
 									updateHandler(r)
 									
 								}, function(e){
 									console.log(e);
+									console.log("BGSERVICE: RegisteredForUpdates failed");
+
 									
 								});
 							}
 							
 						},function(r){
 							console.log(r)
+							console.log("BGSERVICE: enableTimer failed");
+
 							
 						});
 				},function(r){
 					console.log(r)
+					console.log("BGSERVICE: startService failed");
 					
 				});
 				
 			} else {
 				myService.enableTimer(60000, 
 					function(r){
+						console.log("BGSERVICE: enableTimer done");
 						if (!r.RegisteredForUpdates) {
 							myService.registerForUpdates(function(r){
+								console.log("BGSERVICE: registerForUpdates done");
 								updateHandler(r)
 								
 						}, function(e){
-									console.log(e);
-								
+								console.log(e);
+								console.log("BGSERVICE: registerForUpdates failed");
 							});
 						}
 						
 					},function(r){
+						console.log("BGSERVICE: enableTimer failed");
 						console.log(r)
 						
 					});
