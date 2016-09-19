@@ -153,13 +153,13 @@ div.ui-loader span.ui-icon-loading{
 #mainList > li >p >a {
 	font-size: medium;
 	text-decoration:none;
-	
+	color: black;
 }
 
 #mainList > li.received >p >a {
 	font-size: medium;
 	text-decoration:none;
-	opacity:0.75;
+	opacity: 0.5;
 	font-style:italic;
 }
 #mainList > li.received > span {
@@ -207,4 +207,9 @@ h1,h2,h3,p {
 #userLabel {
 	text-transform:none;
 	font-style:italic;
+	text-align: center;
+	display: inherit;
+	bottom: 0px;
+	margin-top: 50px;
+	/* position: absolute; */
 }

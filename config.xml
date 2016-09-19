@@ -19,6 +19,8 @@
     <platform name="android">
         <allow-intent href="market:*" />
         <preference name="android-targetSdkVersion" value ="19" />
+		<config-file target="AndroidManifest.xml" parent="./application/service[@android:name='com.red_folder.phonegap.plugin.backgroundservice.NotiMovilService']/intent-filter/action[@android:name='com.red_folder.phonegap.plugin.backgroundservice.NotiMovilService']">
+		</config-file>
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />

@@ -9,7 +9,6 @@ function Client() {
     this.backend = BACKEND;
 	this.token = window.localStorage.getItem("AUTHTOKEN");
 	$("#userLabel").html("Conectado como: " +window.localStorage.getItem("LASTUSER"))
-	debugger;
 	if (this.token!=null) {
 		if (myService!=null) {
 				myService.setConfiguration({"token":this.token});
@@ -289,7 +288,7 @@ function initSystem() {
 }
 
 
-if (typeof app != 'undefined')
+if (window.location.pathname.includes("/android_asset"))
 	document.addEventListener("deviceready", initSystem, false);
 else {
 	$(document).ready(function () {

@@ -15,6 +15,9 @@
         },
         "com.red_folder.phonegap.plugin.backgroundservice": {
             "PACKAGE_NAME": "es.crsur.notimovil"
+        },
+        "cordova-custom-config": {
+            "PACKAGE_NAME": "es.crsur.notimovil"
         }
     },
     "dependent_plugins": {
