@@ -154,13 +154,15 @@ div.ui-loader span.ui-icon-loading{
 	font-size: medium;
 	text-decoration:none;
 	color: black;
+	font-weight: bold;
 }
 
 #mainList > li.received >p >a {
 	font-size: medium;
 	text-decoration:none;
 	opacity: 0.5;
-	font-style:italic;
+	font-style: normal;
+	font-weight: normal;
 }
 #mainList > li.received > span {
 	
