@@ -63,7 +63,7 @@ Client.prototype.list = function () {
             else {
 				markup="";
 				$.each(e.datalist, function(index, value) {
-					console.log(value);
+					//console.log(value);
 					if (value.RECIBIDO!=null) 
 						cssclass="received";
 					else
@@ -77,10 +77,32 @@ Client.prototype.list = function () {
 				$("li.clickable").on("click",function(e) {
 					  _oevent=e.originalEvent.currentTarget;
 					 _this.getDetail(e.originalEvent.currentTarget.getAttribute("ca"), function(pp) {
+						 markup="";
 						 $("#notTitle").html(pp.data.ASUNTO);
 						 $("#notDetail").html(pp.data.TXT);
-						 $("#notAttachment").html(pp.data.DE);
+						 
+						 
 						 _oevent.className += " received" ;
+						 
+						 if (pp.data.atts!=null) {
+							  $.each(pp.data.atts,function(index,value) {
+									r=jQuery('<li/>', {
+										text: value.NAME
+									}).appendTo('#notAttachment').click(function(e) {
+										console.log("click: "+value.IDI);
+										client.getAttachment(value.IDI,function(e) {
+											console.log(e);
+											
+										});
+										
+									});;
+									
+									
+							  });
+							  
+						 }
+						 
+						 
 						 $("body").pagecontainer("change", "#detail");
 					 });
 					
@@ -102,6 +124,31 @@ Client.prototype.getDetail = function (idi,callback) {
         beforeSend: function () { $.mobile.loading('show') },
         complete: function () { $.mobile.loading('hide') },
         data: { "TOKEN": this.token,"IDI":idi,"COMMAND":"DETAIL" },
+        dataType: 'json',
+        success: function (e) {
+            if (e.status == "KO") {
+                console.log(e);
+			}
+            else {
+				callback(e);
+			}
+        },
+        error: function () {
+           console.error("error");
+        }
+    });
+}
+
+
+Client.prototype.getAttachment = function (idi,callback) {
+	_this=this;
+    $.ajax({
+        type: "POST",
+        url: BACKEND,
+        crossDomain: true,
+        beforeSend: function () { $.mobile.loading('show') },
+        complete: function () { $.mobile.loading('hide') },
+        data: { "TOKEN": this.token,"IDI":idi,"COMMAND":"ATTACHMENT" },
         dataType: 'json',
         success: function (e) {
             if (e.status == "KO") {
