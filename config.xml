@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="es.crsur.notimovil" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="es.crsur.notimovil" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+	<preference name="cordova-custom-config-autorestore" value="true" />
     <name>NotiMovil</name>
     <description>
         Sistema de notificaciones y autorizaciones de CRSUR
@@ -19,8 +20,31 @@
     <platform name="android">
         <allow-intent href="market:*" />
         <preference name="android-targetSdkVersion" value ="19" />
-		<config-file target="AndroidManifest.xml" parent="./application/service[@android:name='com.red_folder.phonegap.plugin.backgroundservice.NotiMovilService']/intent-filter/action[@android:name='com.red_folder.phonegap.plugin.backgroundservice.NotiMovilService']">
+		<config-file target="AndroidManifest.xml" parent="./application">
+			<service android:name="com.red_folder.phonegap.plugin.backgroundservice.NotiMovilService">
+				<intent-filter>
+					<action android:name="com.red_folder.phonegap.plugin.backgroundservice.NotiMovilService" />
+				</intent-filter>	
+			</service>
+			
 		</config-file>
+
+		<config-file target="AndroidManifest.xml" parent="./application/activity[@android:name='MainActivity']">
+			 <intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="crsurn" />
+            </intent-filter>
+		
+		</config-file>
+		
+	
+		
+		<config-file target="AndroidManifest.xml" parent="./">
+			<uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+		</config-file>
+		
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />

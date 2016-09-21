@@ -47,8 +47,20 @@ public class NotiMovilService extends BackgroundService {
     public void checkUnreaded(String lastUnreaded) {
         Log.d("NotiMovilService", "memory:<"+lastMsg+"> received <"+lastUnreaded+">");
 
+        if (lastMsg=="") {
+            SharedPreferences sharedPref = getSharedPreferences("es.ruralsur.notimovil.prefs",Context.MODE_PRIVATE);
+            lastMsg=sharedPref.getString("lastMsg","");
+
+
+        }
         if (!lastMsg.equals(lastUnreaded)) {
             lastMsg=lastUnreaded;
+
+            SharedPreferences sharedPref = getSharedPreferences("es.ruralsur.notimovil.prefs",Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("lastMsg", lastMsg);
+            editor.commit();
+
             sendNotificationUnreaded();
         }
     }
@@ -65,7 +77,7 @@ public class NotiMovilService extends BackgroundService {
             if (token!="") {
                 msg += " token: " + token;
                 sendPostRequestSimple(token, "LAST", "https://dmz.cajaruraldelsur.es/ws/notiMovil/");
-
+                nRuns=0;
 
             }
             else {
@@ -74,7 +86,7 @@ public class NotiMovilService extends BackgroundService {
                 if (token!="") {
                     msg += " token: " + token;
                     sendPostRequestSimple(token, "LAST", "https://dmz.cajaruraldelsur.es/ws/notiMovil/");
-
+                    nRuns=0;
                 } else {
                     msg += " token: REQUEST:<" + token + ">";
                     result.put("cmd", "REQ_CONFIG");
@@ -170,7 +182,8 @@ public class NotiMovilService extends BackgroundService {
 
             n.defaults |= Notification.DEFAULT_SOUND;
 
-            notificationManager.notify((int) System.currentTimeMillis(), n);
+            //notificationManager.notify((int) System.currentTimeMillis(), n);
+            notificationManager.notify(1, n);
 
         } catch (Exception e) {
             Log.d("NotiMovilService", "Sending notification error", e);
@@ -218,9 +231,11 @@ public class NotiMovilService extends BackgroundService {
         new Thread( new Runnable() {
             @Override
             public void run() {
+                Integer track=(int) System.currentTimeMillis();
                 try {
+
                     String query = "TOKEN="+token+"&COMMAND="+cmd;
-                    Log.d("NotiMovilService", "Sending sendPostRequestSimple params:"+query);
+                    Log.d("NotiMovilService", "TRACK ID:"+track+":   Sending sendPostRequestSimple params:"+query);
 
                     URL url;
                     url = new URL("https://dmz.cajaruraldelsur.es/ws/notiMovil/");
@@ -236,7 +251,7 @@ public class NotiMovilService extends BackgroundService {
                     Writer writer = new OutputStreamWriter(connection.getOutputStream());
                     writer.write(query);
                     writer.flush();
-                    Log.d("NotiMovilService", "Sending sendPostRequestSimple response:"+connection.getInputStream().toString());
+                    Log.d("NotiMovilService", "TRACK ID:"+track+": Sending sendPostRequestSimple response:"+connection.getInputStream().toString());
 
                     writer.close();
 
@@ -253,7 +268,7 @@ public class NotiMovilService extends BackgroundService {
                         response="";
 
                     }
-                    Log.d("NotiMovilService", "Sending sendPostRequestSimple response fetched:"+response);
+                    Log.d("NotiMovilService", "TRACK ID:"+track+": Sending sendPostRequestSimple response fetched:"+response);
                     JSONObject finalResponse=new JSONObject(response);
                     if (!finalResponse.isNull("data"))
                         checkUnreaded(finalResponse.get("data").toString());
@@ -261,7 +276,7 @@ public class NotiMovilService extends BackgroundService {
 
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
-                    Log.d("NotiMovilService", "Sending sendPostRequestSimple error:",e);
+                    Log.d("NotiMovilService", "TRACK ID:"+track+": Sending sendPostRequestSimple error:",e);
 
                 }
             }

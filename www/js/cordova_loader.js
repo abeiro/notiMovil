@@ -1,4 +1,4 @@
-if (window.location.pathname.includes("/android_asset")) {
+if (window.location.pathname.indexOf("/android_asset")!=-1) {
 	console.log("Loading Cordova");
 	var head = document.getElementsByTagName('head')[0];
 	var js = document.createElement("script");

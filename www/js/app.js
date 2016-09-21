@@ -80,7 +80,7 @@ Client.prototype.list = function () {
 						 $("#notTitle").html(pp.data.ASUNTO);
 						 $("#notDetail").html(pp.data.TXT);
 						 $("#notAttachment").html(pp.data.DE);
-						 _oevent.className += "received" ;
+						 _oevent.className += " received" ;
 						 $("body").pagecontainer("change", "#detail");
 					 });
 					
@@ -199,11 +199,12 @@ function initSystem() {
 					myService.enableTimer(60000, 
 						function(r){
 							console.log("BGSERVICE: enableTimer done");
+							myService.registerForBootStart(function(r){console.log("Registered for boot start")}, function(r){});
 							if (!r.RegisteredForUpdates) {
 								console.log("BGSERVICE: RegisteredForUpdates ...");
 								myService.registerForUpdates(function(r){
-									console.log("BGSERVICE: registerForUpdates done");
-									updateHandler(r)
+									console.log("BGSERVICE: registerForUpdates running");
+									updateHandler(r);
 									
 								}, function(e){
 									console.log(e);
@@ -251,6 +252,22 @@ function initSystem() {
 		});
 	} catch (e) {}
 	
+	try {
+		fr=window.localStorage.getItem("FIRSTRUN");
+		if (fr==null) {
+			window.plugins.webintent.startActivity({
+				action: 'android.settings.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS',
+				url: 'package:es.crsur.notimovil'},
+				function(e) {console.log(e);window.localStorage.setItem("FIRSTRUN","false");},
+				function(e) {console.log(e)}
+			);
+		}
+		
+		
+	} catch (e) {
+		
+		
+	}
 	
 	$("body").css("visibility","visible")
 	
@@ -262,6 +279,10 @@ function initSystem() {
 	$('#loginButton').click(function() { 
 		client.login($("#user").val(),$("#password").val());
 	});
+	
+	document.addEventListener("resume", function() {
+		client.connect();
+	}, false);
 	
 	$('#exitApp').click(function() { 
 		navigator.app.exitApp();
@@ -275,7 +296,7 @@ function initSystem() {
 	
 	
 	/* Prevent exit on back button */
-	document.addEventListener("backbutton", function(e){
+	/*document.addEventListener("backbutton", function(e){
        if($.mobile.activePage.is('#index')){
            e.preventDefault();
            //navigator.app.exitApp();
@@ -283,12 +304,12 @@ function initSystem() {
        else {
            navigator.app.backHistory()
        }
-    }, false);
+    }, false);*/
 
 }
 
 
-if (window.location.pathname.includes("/android_asset"))
+if (window.location.pathname.indexOf("/android_asset")!=-1) 
 	document.addEventListener("deviceready", initSystem, false);
 else {
 	$(document).ready(function () {
