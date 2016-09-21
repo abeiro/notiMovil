@@ -92,6 +92,7 @@ Client.prototype.list = function () {
 										console.log("click: "+value.IDI);
 										client.getAttachment(value.IDI,function(e) {
 											console.log(e);
+											showFile(e);
 											
 										});
 										

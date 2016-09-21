@@ -7,6 +7,9 @@
         "files": {}
     },
     "installed_plugins": {
+        "com.borismus.webintent": {
+            "PACKAGE_NAME": "es.crsur.notimovil"
+        },
         "com.red_folder.phonegap.plugin.backgroundservice": {
             "PACKAGE_NAME": "es.crsur.notimovil"
         },
@@ -16,10 +19,10 @@
         "cordova-plugin-background-mode": {
             "PACKAGE_NAME": "es.crsur.notimovil"
         },
-        "cordova-plugin-whitelist": {
+        "cordova-plugin-file": {
             "PACKAGE_NAME": "es.crsur.notimovil"
         },
-        "com.borismus.webintent": {
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "es.crsur.notimovil"
         }
     },
@@ -28,6 +31,9 @@
             "PACKAGE_NAME": "es.crsur.notimovil"
         },
         "cordova-plugin-browsersync": {
+            "PACKAGE_NAME": "es.crsur.notimovil"
+        },
+        "cordova-plugin-compat": {
             "PACKAGE_NAME": "es.crsur.notimovil"
         }
     }
