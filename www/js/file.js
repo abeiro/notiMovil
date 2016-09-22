@@ -87,7 +87,7 @@ function showFile(data) {
 
 	}, cpfErrorLog);
 	*/
-	window.resolveLocalFileSystemURL(cordova.file.externalApplicationStorageDirectory,
+	window.resolveLocalFileSystemURL(cordova.file.tempDirectory,
 		function(dirpointer){ 
 			console.log("Directory opened",dirpointer)
 			cpfGetSampleFile(dirpointer,data)

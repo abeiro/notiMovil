@@ -1,4 +1,5 @@
 #!/bin/bash
+exit 0
 
 MANIFEST=./platforms/android/AndroidManifest.xml
 
