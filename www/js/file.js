@@ -36,17 +36,28 @@ function cpfGetSampleFile(dirEntry,data) {
         var blob=b64toBlob(data.data.DOC,data.data.MIME);
 
 	dirEntry.getFile(data.data.NAME, { create: true, exclusive: false }, function (fileEntry) {
-
+		console.log("Creating file: ",fileEntry);
 		fileEntry.createWriter(function (fileWriter) {
 
 			fileWriter.onwriteend = function(e) {
-				console.log("Successful file write...",e);
+				console.log("Successful file write..."+e.target.localURL,e);
+				
 				//window.open(e.target.localURL, '_blank', 'location=no,closebuttoncaption=Close,enableViewportScale=yes');            
-				window.plugins.webintent.startActivity({
-					action: 'android.intent.action.SEND',
+				/*window.plugins.webintent.startActivity({
+					action: 'android.intent.action.VIEW',
+					mime:data.data.MIME,
 					url: e.target.localURL},
 					function(e) {console.log("SUCCESS INTENT",e)},
 					function(e) {console.log("FAIL INTENT",e)}
+				);*/
+				console.log("Successful file write..."+fileEntry.nativeURL);
+				cordova.plugins.fileOpener2.open(
+					fileEntry.nativeURL, 
+					data.data.MIME, 
+					{
+						error : function(e){ console.log("SUCCESS OPEN",e)}, 
+						success : function(e){console.log("FAIL OPEN",e) } 
+					} 
 				);
 			};
 
@@ -61,13 +72,26 @@ function cpfGetSampleFile(dirEntry,data) {
 }
 
 function showFile(data) {
-	window.requestFileSystem(window.TEMPORARY, 5 * 1024 * 1024, function (fs) {
+	/*window.requestFileSystem(LocalFileSystem.PERSISTENT, 5 * 1024 * 1024, function (fs) {
+		
+		var entry = fs.root;
+		entry.getDirectory("/storage/emulated/0/Android/data/es.crsur.notimovil/temp", { // Give your directory name instead of Directory_Name
+			create: true,
+			exclusive: false
+		},function(dirpointer) {
+			cpfGetSampleFile(dirpointer,data)
+			
+		}, cpfErrorLog);
 
 		console.log('file system open: ' + fs.name);
-		cpfGetSampleFile(fs.root,data);
 
 	}, cpfErrorLog);
+	*/
+	window.resolveLocalFileSystemURL(cordova.file.externalApplicationStorageDirectory,
+		function(dirpointer){ 
+			console.log("Directory opened",dirpointer)
+			cpfGetSampleFile(dirpointer,data)
+		});
 	
-	
-	
+
 }

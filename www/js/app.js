@@ -80,7 +80,7 @@ Client.prototype.list = function () {
 						 markup="";
 						 $("#notTitle").html(pp.data.ASUNTO);
 						 $("#notDetail").html(pp.data.TXT);
-						 
+						 $("#notAttachment").html('');
 						 
 						 _oevent.className += " received" ;
 						 
