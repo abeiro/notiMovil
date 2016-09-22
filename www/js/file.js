@@ -80,7 +80,7 @@ function showFile(data) {
 				cpfGetSampleFile(dirpointer,data)
 			});
 		
-	} else if ((device.platform=="iOS") {
+	} else if (device.platform=="iOS") {
 		window.resolveLocalFileSystemURL(cordova.file.tempDirectory,
 			function(dirpointer){ 
 				console.log("Directory opened",dirpointer)
