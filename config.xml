@@ -49,5 +49,7 @@
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
+	<preference name="StatusBarOverlaysWebView" value="true" />
+	<preference name="StatusBarStyle" value="blackopaque" />
     </platform>
 </widget>
