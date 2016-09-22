@@ -1,5 +1,11 @@
 #!/bin/bash
-exit 0
+
+if [ -d ./platforms/android/ ]; 
+	then echo "Platform android detected";
+else 
+	exit 0;
+fi
+
 
 MANIFEST=./platforms/android/AndroidManifest.xml
 

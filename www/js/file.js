@@ -72,26 +72,20 @@ function cpfGetSampleFile(dirEntry,data) {
 }
 
 function showFile(data) {
-	/*window.requestFileSystem(LocalFileSystem.PERSISTENT, 5 * 1024 * 1024, function (fs) {
+
+	if (device.platform=="Android") {
+		window.resolveLocalFileSystemURL(cordova.file.externalApplicationStorageDirectory,
+			function(dirpointer){ 
+				console.log("Directory opened",dirpointer)
+				cpfGetSampleFile(dirpointer,data)
+			});
 		
-		var entry = fs.root;
-		entry.getDirectory("/storage/emulated/0/Android/data/es.crsur.notimovil/temp", { // Give your directory name instead of Directory_Name
-			create: true,
-			exclusive: false
-		},function(dirpointer) {
-			cpfGetSampleFile(dirpointer,data)
-			
-		}, cpfErrorLog);
-
-		console.log('file system open: ' + fs.name);
-
-	}, cpfErrorLog);
-	*/
-	window.resolveLocalFileSystemURL(cordova.file.tempDirectory,
-		function(dirpointer){ 
-			console.log("Directory opened",dirpointer)
-			cpfGetSampleFile(dirpointer,data)
-		});
-	
+	} else if ((device.platform=="iOS") {
+		window.resolveLocalFileSystemURL(cordova.file.tempDirectory,
+			function(dirpointer){ 
+				console.log("Directory opened",dirpointer)
+				cpfGetSampleFile(dirpointer,data)
+			});
+	}
 
 }
