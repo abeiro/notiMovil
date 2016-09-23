@@ -44,6 +44,14 @@ public class NotiMovilService extends BackgroundService {
     String token = "";
     String lastMsg="";
 
+    public void clearToken() {
+    
+		warned=false;
+		nRuns=0;
+		token="";
+		
+    }
+    
     public void checkUnreaded(String lastUnreaded) {
         Log.d("NotiMovilService", "memory:<"+lastMsg+"> received <"+lastUnreaded+">");
 
@@ -270,6 +278,13 @@ public class NotiMovilService extends BackgroundService {
                     }
                     Log.d("NotiMovilService", "TRACK ID:"+track+": Sending sendPostRequestSimple response fetched:"+response);
                     JSONObject finalResponse=new JSONObject(response);
+                    if (!finalResponse.isNull("status")) {
+						if (finalResponse.get("status").toString().equals("KO")) {
+							clearToken();
+							return;
+						}
+                    
+                    }
                     if (!finalResponse.isNull("data"))
                         checkUnreaded(finalResponse.get("data").toString());
 

@@ -73,8 +73,14 @@ function cpfGetSampleFile(dirEntry,data) {
 
 function showFile(data) {
 
+	
 	if (device.platform=="Android") {
-		window.resolveLocalFileSystemURL(cordova.file.externalApplicationStorageDirectory,
+		if (cordova.file.externalApplicationStorageDirectory==null)
+			FURI=cordova.file.dataDirectory;
+		else
+			FURI=kate.externalApplicationStorageDirectory;
+		
+		window.resolveLocalFileSystemURL(FURI,
 			function(dirpointer){ 
 				console.log("Directory opened",dirpointer)
 				cpfGetSampleFile(dirpointer,data)

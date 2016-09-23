@@ -103,7 +103,8 @@ Client.prototype.list = function () {
 							  
 						 }
 						 
-						 
+						 $("#OID").val(_oevent.getAttribute("ca"));
+						 $("#comentarios").val("")
 						 $("body").pagecontainer("change", "#detail");
 					 });
 					
@@ -150,6 +151,54 @@ Client.prototype.getAttachment = function (idi,callback) {
         beforeSend: function () { $.mobile.loading('show') },
         complete: function () { $.mobile.loading('hide') },
         data: { "TOKEN": this.token,"IDI":idi,"COMMAND":"ATTACHMENT" },
+        dataType: 'json',
+        success: function (e) {
+            if (e.status == "KO") {
+                console.log(e);
+			}
+            else {
+				callback(e);
+			}
+        },
+        error: function () {
+           console.error("error");
+        }
+    });
+}
+
+Client.prototype.accept = function (idi,comentarios,callback) {
+	_this=this;
+    $.ajax({
+        type: "POST",
+        url: BACKEND,
+        crossDomain: true,
+        beforeSend: function () { $.mobile.loading('show') },
+        complete: function () { $.mobile.loading('hide') },
+        data: { "TOKEN": this.token,"IDI":idi,"COMMAND":"ACCEPT" ,"REASON":comentarios},
+        dataType: 'json',
+        success: function (e) {
+            if (e.status == "KO") {
+                console.log(e);
+			}
+            else {
+				callback(e);
+			}
+        },
+        error: function () {
+           console.error("error");
+        }
+    });
+}
+
+Client.prototype.deny = function (idi,comentarios,callback) {
+	_this=this;
+    $.ajax({
+        type: "POST",
+        url: BACKEND,
+        crossDomain: true,
+        beforeSend: function () { $.mobile.loading('show') },
+        complete: function () { $.mobile.loading('hide') },
+        data: { "TOKEN": this.token,"IDI":idi,"COMMAND":"DENY","REASON":comentarios },
         dataType: 'json',
         success: function (e) {
             if (e.status == "KO") {
@@ -341,6 +390,49 @@ function initSystem() {
 		
 		
 	} );
+	
+	$('#acceptButton').click(function() { 
+		 $("#ACTION").val("A");
+		 $('#finalSend').val("ACEPTAR");
+		 
+		 $('#finalSend').removeClass("clr-primary")
+		 $('#finalSend').removeClass("clr-warning")
+		 $('#finalSend').addClass("clr-primary")
+		 
+		 $("body").pagecontainer("change", "#sendDialog");
+		 
+		
+	});
+	
+	$('#denyButton').click(function() { 
+		 $("#ACTION").val("D");
+		 $('#finalSend').val("DENEGAR");
+		 
+		  $('#finalSend').removeClass("clr-primary")
+		 $('#finalSend').removeClass("clr-warning")
+		 $('#finalSend').addClass("clr-warning")
+		 
+		 $("body").pagecontainer("change", "#sendDialog");
+		
+	});
+	
+	$('#finalSend').click(function() { 
+		if ($("#ACTION").val()=="A") {
+			client.accept($("#OID").val(),$("#comentarios").val(),function(e) {
+				 $("body").pagecontainer("change", "#index");
+				 client.connect();//Aqui podemos optimizar
+			});
+			
+			
+		} else if ($("#ACTION").val()=="D") {
+			client.deny($("#OID").val(),$("#comentarios").val(),function(e) {
+				$.mobile.changePage('#index', {reverse: false, changeHash: false});
+				 
+				 client.connect();//Aqui podemos optimizar
+				
+			});
+		}
+	});
 	
 	
 	/* Prevent exit on back button */

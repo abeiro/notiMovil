@@ -92,7 +92,7 @@
 	<div data-role="page" id="about">
 		<header data-role="header">
 			<h1>Acerca de</h1>
-			<a href="#index" data-role="button" class="ui-btn-left wow fadeIn ui-btn waves-effect waves-button waves-effect waves-button">
+			<a data-rel="back" data-role="button" class="ui-btn-left wow fadeIn ui-btn waves-effect waves-button waves-effect waves-button">
 				<i class="zmdi zmdi-arrow-back zmd-1x"></i>
 			</a>
 		</header>
@@ -105,7 +105,7 @@
 	<div data-role="page" id="detail">
 		<header data-role="header" data-position="fixed">
 			<h1 >Detalle</h1>
-			<a href="#index" data-role="button" class="ui-btn-left wow fadeIn ui-btn waves-effect waves-button waves-effect waves-button">
+			<a  data-rel="back" data-role="button" class="ui-btn-left wow fadeIn ui-btn waves-effect waves-button waves-effect waves-button">
 				<i class="zmdi zmdi-arrow-back zmd-1x"></i>
 			</a>
 		</header>
@@ -115,11 +115,29 @@
 			<p id="notDetail"></p>
 			<p> Documentos adjuntos</p>
 			<ul id="notAttachment"></ul>
-			<a data-role="button" class="ui-btn clr-primary ui-btn-raised">Aceptar</a>
-			<a data-role="button" class="ui-btn clr-warning ui-btn-raised">Denegar</a>
+			<div>
+				<a data-role="button" class="ui-btn clr-primary ui-btn-raised" style="width:40%;float:left;" id="acceptButton">Aceptar</a>
+				<a data-role="button" class="ui-btn clr-warning ui-btn-raised" style="width:40%;float:right;" id="denyButton">Denegar</a>
+			</div>
 			
 		</div>
 	</div>
+	
+	<div data-role="page" id="sendDialog">
+		<header data-role="header" data-position="fixed">
+			<h1 >Enviar respuesta</h1>
+			<a data-role="button" data-rel="back" class="ui-btn-left wow fadeIn ui-btn waves-effect waves-button waves-effect waves-button">
+				<i class="zmdi zmdi-arrow-back zmd-1x"></i>
+			</a>
+		</header>
+		<div data-role="content">
+			<input id="OID" type="hidden" />
+			<input id="ACTION" type="hidden" />
+			<textarea id="comentarios" rows="20" ></textarea>
+			<a data-role="button" class="ui-btn clr-primary ui-btn-raised" id="finalSend">Enviar</a>
+		</div>
+	</div>
+	
 	<frame id="documentVisor" name="documentVisor"  style="display:none">
 	<script type="text/javascript" src="js/cordova_loader.js"></script>
 	<script type="text/javascript" src="js/jquery-1.11.1.min.js" id="cordova-jquery"></script>
