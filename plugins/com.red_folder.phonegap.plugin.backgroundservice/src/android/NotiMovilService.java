@@ -31,6 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.math.BigDecimal;
 
 import android.R;
 
@@ -42,7 +43,7 @@ public class NotiMovilService extends BackgroundService {
     int nRuns = 0;
     Boolean warned = false;
     String token = "";
-    String lastMsg="";
+    BigDecimal lastMsg=null;
 
     public void clearToken() {
     
@@ -52,24 +53,39 @@ public class NotiMovilService extends BackgroundService {
 		
     }
     
-    public void checkUnreaded(String lastUnreaded) {
-        Log.d("NotiMovilService", "memory:<"+lastMsg+"> received <"+lastUnreaded+">");
+    public void checkUnreaded(JSONObject lastUnreaded) {
+		
+		BigDecimal lastId;
+		BigDecimal nUnreaded;
+		
+		try {
+			lastId=new BigDecimal(lastUnreaded.get("LIDI").toString());
+			nUnreaded=new BigDecimal(lastUnreaded.get("N").toString());
+		
+		} catch (JSONException e) {
+			lastId=new BigDecimal("0");
+			nUnreaded=new BigDecimal("0");
+		
+		}
+		
 
-        if (lastMsg=="") {
+        if (lastMsg==null) {
             SharedPreferences sharedPref = getSharedPreferences("es.ruralsur.notimovil.prefs",Context.MODE_PRIVATE);
-            lastMsg=sharedPref.getString("lastMsg","");
-
-
+            lastMsg=new BigDecimal(sharedPref.getString("lastMsg",""));
         }
-        if (!lastMsg.equals(lastUnreaded)) {
-            lastMsg=lastUnreaded;
+        
+        
+        Log.d("NotiMovilService", "memory:<"+lastMsg.intValue()+"> received <"+lastId.intValue()+">");
+        
+        if (lastMsg.intValue()<lastId.intValue()) {
+            lastMsg=lastId;
 
             SharedPreferences sharedPref = getSharedPreferences("es.ruralsur.notimovil.prefs",Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("lastMsg", lastMsg);
+            editor.putString("lastMsg", lastMsg.toString());
             editor.commit();
 
-            sendNotificationUnreaded();
+            sendNotificationUnreaded(nUnreaded);
         }
     }
 
@@ -200,7 +216,7 @@ public class NotiMovilService extends BackgroundService {
         Log.d("NotiMovilService", "Sending notification end");
     }
 
-    protected void sendNotificationUnreaded() {
+    protected void sendNotificationUnreaded(BigDecimal nn) {
         Log.d("NotiMovilService", "Sending notification start");
         try {
             PackageManager manager = this.getPackageManager();
@@ -211,7 +227,7 @@ public class NotiMovilService extends BackgroundService {
 
             Notification n = new Notification.Builder(this)
                     .setContentTitle("Notificaciones CRSUR")
-                    .setContentText("Tiene notificaciones sin leer")
+                    .setContentText("Tiene "+nn.intValue()+" notificaciones sin leer")
                     .setSmallIcon(android.R.drawable.ic_dialog_info)
                     .setContentIntent(pIntent)
                     .setAutoCancel(true)
@@ -286,7 +302,7 @@ public class NotiMovilService extends BackgroundService {
                     
                     }
                     if (!finalResponse.isNull("data"))
-                        checkUnreaded(finalResponse.get("data").toString());
+                        checkUnreaded(finalResponse);
 
 
                 } catch (Exception e) {

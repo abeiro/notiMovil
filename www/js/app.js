@@ -62,16 +62,18 @@ Client.prototype.list = function () {
 			}
             else {
 				markup="";
-				$.each(e.datalist, function(index, value) {
-					//console.log(value);
-					if (value.RECIBIDO!=null) 
-						cssclass="received";
-					else
-						cssclass=""; 
-						 
+				try {
+					$.each(e.datalist, function(index, value) {
+						//console.log(value);
+						if (value.RECIBIDO!=null) 
+							cssclass="received";
+						else
+							cssclass=""; 
+							
 
-					markup += "<li  class='clickable "+cssclass+"' ca='"+value.IDI+"'><p><a >"+value.ASUNTO+"</a></p><span class='listdate'>"+value.FECHA+"</span></li>";
-				});
+						markup += "<li  class='clickable "+cssclass+"' ca='"+value.IDI+"'><p><a >"+value.ASUNTO+"</a></p><span class='listdate'>"+value.FECHA+"</span></li>";
+					});
+				} catch (e) {}
                 $("#mainList").html(markup)
 				$("#mainList").listview();
 				$("li.clickable").on("click",function(e) {
@@ -81,7 +83,8 @@ Client.prototype.list = function () {
 						 $("#notTitle").html(pp.data.ASUNTO);
 						 $("#notDetail").html(pp.data.TXT);
 						 $("#notAttachment").html('');
-						 
+						 $('#acceptButton').show()
+						 $('#denyButton').show()
 						 _oevent.className += " received" ;
 						 
 						 if (pp.data.atts!=null) {
@@ -181,6 +184,11 @@ Client.prototype.accept = function (idi,comentarios,callback) {
                 console.log(e);
 			}
             else {
+				$("#notTitle").html('');
+				$("#notDetail").html('');
+				$("#notAttachment").html('');
+				$('#acceptButton').hide()
+				$('#denyButton').hide()		 
 				callback(e);
 			}
         },
@@ -205,6 +213,11 @@ Client.prototype.deny = function (idi,comentarios,callback) {
                 console.log(e);
 			}
             else {
+				$("#notTitle").html('');
+				$("#notDetail").html('');
+				$("#notAttachment").html('');
+				$('#acceptButton').hide()
+				$('#denyButton').hide()
 				callback(e);
 			}
         },
@@ -399,7 +412,7 @@ function initSystem() {
 		 $('#finalSend').removeClass("clr-warning")
 		 $('#finalSend').addClass("clr-primary")
 		 
-		 $("body").pagecontainer("change", "#sendDialog");
+		 $.mobile.changePage('#sendDialog', {reverse: false, changeHash: false});
 		 
 		
 	});
@@ -412,14 +425,15 @@ function initSystem() {
 		 $('#finalSend').removeClass("clr-warning")
 		 $('#finalSend').addClass("clr-warning")
 		 
-		 $("body").pagecontainer("change", "#sendDialog");
+		 //$("body").pagecontainer("change", "#sendDialog");
+		 $.mobile.changePage('#sendDialog', {reverse: false, changeHash: false});
 		
 	});
 	
 	$('#finalSend').click(function() { 
 		if ($("#ACTION").val()=="A") {
 			client.accept($("#OID").val(),$("#comentarios").val(),function(e) {
-				 $("body").pagecontainer("change", "#index");
+				 $.mobile.changePage('#index', {reverse: false, changeHash: false});
 				 client.connect();//Aqui podemos optimizar
 			});
 			
