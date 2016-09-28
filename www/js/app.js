@@ -21,41 +21,43 @@ function Client() {
 
 Client.prototype.pushServiceRegister=function() {
 	_this=this;
-	pushManager=PushNotification.init({
-		android: {
-			senderID: "831288533004"
-		},
-		browser: {
-			pushServiceURL: 'https://notimovil-93fac.firebaseio.com'
-		},
-		ios: {
-			alert: "true",
-			badge: "true",
-			sound: "true"
-		},
-		windows: {}
-	});
+	try {
+			pushManager=PushNotification.init({
+			android: {
+				senderID: "831288533004"
+			},
+			browser: {
+				pushServiceURL: 'https://notimovil-93fac.firebaseio.com'
+			},
+			ios: {
+				alert: "true",
+				badge: "true",
+				sound: "true"
+			},
+			windows: {}
+		});
 	
-	pushManager.on('registration', function(data) {
-		console.log("Registration:",data);
-		_this.updatePushToken(data.registrationId);
-	});
+		pushManager.on('registration', function(data) {
+			console.log("Registration:",data);
+			_this.updatePushToken(data.registrationId);
+		});
 
-	pushManager.on('notification', function(data) {
-		// data.message,
-		// data.title,
-		// data.count,
-		// data.sound,
-		// data.image,
-		// data.additionalData
-		console.log(data);
-		_this.list();
-	});
+		pushManager.on('notification', function(data) {
+			// data.message,
+			// data.title,
+			// data.count,
+			// data.sound,
+			// data.image,
+			// data.additionalData
+			console.log(data);
+			_this.list();
+		});
 
-	pushManager.on('error', function(e) {
-		console.error(e);
-	});
+		pushManager.on('error', function(e) {
+			console.error(e);
+		});
 		
+	} catch (e) {console.error(e) }
 }
 
 Client.prototype.updatePushToken = function (fcmToken) {

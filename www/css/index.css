@@ -246,3 +246,5 @@ h1,h2,h3,p {
 
 
 }
+
+#aboutme {margin-left: auto;margin-right: auto;margin-top: auto;margin-bottom: auto;width: 100%;text-align: center;text-shadow: lightgrey 0px 0px 1px;font-weight: bold;color: green;height: 100%;}
