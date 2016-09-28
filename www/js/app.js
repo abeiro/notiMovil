@@ -1,6 +1,7 @@
 var BACKEND = "https://dmz.cajaruraldelsur.es/ws/notiMovil/";
 var client = null;
 var myService=null;
+var pushManager=null;
 
 
 
@@ -10,14 +11,78 @@ function Client() {
 	this.token = window.localStorage.getItem("AUTHTOKEN");
 	$("#userLabel").html("Conectado como: " +window.localStorage.getItem("LASTUSER"))
 	if (this.token!=null) {
-		if (myService!=null) {
-				myService.setConfiguration({"token":this.token});
-			
-			
-		}
+		
+		
+		
 		
 	}
 	
+}
+
+Client.prototype.pushServiceRegister=function() {
+	_this=this;
+	pushManager=PushNotification.init({
+		android: {
+			senderID: "831288533004"
+		},
+		browser: {
+			pushServiceURL: 'https://notimovil-93fac.firebaseio.com'
+		},
+		ios: {
+			alert: "true",
+			badge: "true",
+			sound: "true"
+		},
+		windows: {}
+	});
+	
+	pushManager.on('registration', function(data) {
+		console.log("Registration:",data);
+		_this.updatePushToken(data.registrationId);
+	});
+
+	pushManager.on('notification', function(data) {
+		// data.message,
+		// data.title,
+		// data.count,
+		// data.sound,
+		// data.image,
+		// data.additionalData
+		console.log(data);
+		_this.list();
+	});
+
+	pushManager.on('error', function(e) {
+		console.error(e);
+	});
+		
+}
+
+Client.prototype.updatePushToken = function (fcmToken) {
+	_this=this;
+    $.ajax({
+        type: "POST",
+        url: BACKEND,
+        crossDomain: true,
+        beforeSend: function () { $.mobile.loading('show') },
+        complete: function () { $.mobile.loading('hide') },
+        data: { "TOKEN": this.token ,"FCMTOKEN": fcmToken,"COMMAND":"FCM" },
+        dataType: 'json',
+        success: function (e) {
+            if (e.status == "KO") {
+                console.error(e);
+                
+			}
+            else {
+
+				
+			}
+;
+        },
+        error: function () {
+           console.error("error");
+        }
+    });
 }
 
 Client.prototype.connect = function () {
@@ -36,8 +101,11 @@ Client.prototype.connect = function () {
 				$("body").pagecontainer("change", "#login");
                 
 			}
-            else
+            else {
+				if (pushManager==null)
+					_this.pushServiceRegister();
 				_this.list();
+			}
 ;
         },
         error: function () {
@@ -245,9 +313,7 @@ Client.prototype.login = function (user,password) {
 				_this.token=e.token;
 				
 				if (_this.token!=null) {
-					if (myService!=null) {
-						myService.setConfiguration({"token":_this.token});
-					}
+					_this.pushServiceRegister();
 				}
 	
 				window.localStorage.setItem("AUTHTOKEN",e.token);

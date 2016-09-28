@@ -10,29 +10,27 @@
         "com.borismus.webintent": {
             "PACKAGE_NAME": "es.crsur.notimovil"
         },
-        "com.red_folder.phonegap.plugin.backgroundservice": {
-            "PACKAGE_NAME": "es.crsur.notimovil"
-        },
         "cordova-custom-config": {
-            "PACKAGE_NAME": "es.crsur.notimovil"
-        },
-        "cordova-plugin-background-mode": {
             "PACKAGE_NAME": "es.crsur.notimovil"
         },
         "cordova-plugin-file": {
             "PACKAGE_NAME": "es.crsur.notimovil"
         },
+        "cordova-plugin-file-opener2": {
+            "PACKAGE_NAME": "es.crsur.notimovil"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "es.crsur.notimovil"
+        },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "es.crsur.notimovil"
         },
-        "cordova-plugin-file-opener2": {
+        "phonegap-plugin-push": {
+            "SENDER_ID": "831288533004",
             "PACKAGE_NAME": "es.crsur.notimovil"
         }
     },
     "dependent_plugins": {
-        "cordova-plugin-device": {
-            "PACKAGE_NAME": "es.crsur.notimovil"
-        },
         "cordova-plugin-browsersync": {
             "PACKAGE_NAME": "es.crsur.notimovil"
         },
