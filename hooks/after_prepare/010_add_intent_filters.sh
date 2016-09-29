@@ -6,6 +6,7 @@ else
 	exit 0;
 fi
 
+exit 0;
 
 MANIFEST=./platforms/android/AndroidManifest.xml
 
@@ -17,7 +18,14 @@ ADDITION='\
     <action android:name="android.intent.action.VIEW"></action>\
     <category android:name="android.intent.category.DEFAULT"></category>\
     <category android:name="android.intent.category.BROWSABLE"></category>\
-  </intent-filter>
+  </intent-filter>\
+  <intent-filter>\
+  <action android:name="android.intent.action.SEND" />\
+  <action android:name="android.intent.action.SEND_MULTIPLE" />\
+  <category android:name="android.intent.category.DEFAULT" />\
+  <data android:scheme="crsurn" />\
+   </intent-filter>
 ';
 
 sed -i -e "/${AFTER_LINE}/a${ADDITION}" $MANIFEST
+ 

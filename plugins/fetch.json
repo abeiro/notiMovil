@@ -12,7 +12,7 @@
             "type": "registry",
             "id": "cordova-plugin-device"
         },
-        "is_top_level": false,
+        "is_top_level": true,
         "variables": {}
     },
     "cordova-custom-config": {

@@ -78,7 +78,7 @@ function showFile(data) {
 		if (cordova.file.externalApplicationStorageDirectory==null)
 			FURI=cordova.file.dataDirectory;
 		else
-			FURI=kate.externalApplicationStorageDirectory;
+			FURI=cordova.file.externalApplicationStorageDirectory;
 		
 		window.resolveLocalFileSystemURL(FURI,
 			function(dirpointer){ 
