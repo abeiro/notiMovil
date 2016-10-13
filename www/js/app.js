@@ -30,8 +30,9 @@ Client.prototype.pushServiceRegister=function() {
 				pushServiceURL: 'https://notimovil-93fac.firebaseio.com'
 			},
 			ios: {
+				senderID: "831288533004",
 				alert: "true",
-				badge: "true",
+				badge: "false",
 				sound: "true"
 			},
 			windows: {}
@@ -141,7 +142,7 @@ Client.prototype.list = function () {
 							cssclass=""; 
 							
 
-						markup += "<li  class='clickable "+cssclass+"' ca='"+value.IDI+"'><p><a >"+value.ASUNTO+"</a></p><span class='listdate'>"+value.FECHA+"</span></li>";
+						markup += "<li  class='clickable "+cssclass+"' ca='"+value.IDI+"'><p><a >"+value.ASUNTO+"</a></p><span class='listdate'>"+value.FECHA+"</span><span class='originApp'>"+((value.APP==null)?"":value.APP)+"</span></li>";
 					});
 				} catch (e) {}
                 $("#mainList").html(markup)
@@ -150,6 +151,9 @@ Client.prototype.list = function () {
 					  _oevent=e.originalEvent.currentTarget;
 					 _this.getDetail(e.originalEvent.currentTarget.getAttribute("ca"), function(pp) {
 						 markup="";
+						 $("#notTitle").html(pp.data.ASUNTO);
+						 $("#notFecha").html(pp.data.FECHA);
+						 $("#notOriginApp").html(pp.data.APP);
 						 $("#notTitle").html(pp.data.ASUNTO);
 						 $("#notDetail").html(pp.data.TXT);
 						 $("#notAttachment").html('');
@@ -256,6 +260,8 @@ Client.prototype.accept = function (idi,comentarios,callback) {
             else {
 				$("#notTitle").html('');
 				$("#notDetail").html('');
+				$("#notFecha").html('');
+				$("#notOriginApp").html('');
 				$("#notAttachment").html('');
 				$('#acceptButton').hide()
 				$('#denyButton').hide()		 

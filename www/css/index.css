@@ -21,6 +21,7 @@
 }
 
 
+
 body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
@@ -172,6 +173,15 @@ div.ui-loader span.ui-icon-loading{
 	font-style:italic;
 }
 
+#mainList > li >  span.originApp {
+	right:0px;
+	position:absolute;
+	text-transform:none;
+	font-size: x-small;
+	bottom: 10px;
+}
+
+
 /* hack for input searcgh box */
 
 .ui-input-search.ui-input-has-clear .ui-btn.ui-input-clear, .ui-input-text.ui-input-has-clear .ui-btn.ui-input-clear {
@@ -239,6 +249,9 @@ h1,h2,h3,p {
 	padding-left: 48px;
 }
 
+#notOriginApp {font-size: x-small;display: inline-block;text-align: right;width: 50%;/* bottom: 10px; */}
+
+#notFecha {/* font-size: small; */font-size: x-small;display: inline-block;text-align: left;width: 50%;}
 
 #comentarios {
 	
@@ -246,5 +259,13 @@ h1,h2,h3,p {
 
 
 }
+#notAttachment {
+	margin-bottom:40px;
+}
+#notAttachment > li {
+	margin-top:4px;
+	margin-bottom:4px;
 
+}
 #aboutme {margin-left: auto;margin-right: auto;margin-top: auto;margin-bottom: auto;width: 100%;text-align: center;text-shadow: lightgrey 0px 0px 1px;font-weight: bold;color: green;height: 100%;}
+
