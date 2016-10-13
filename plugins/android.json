@@ -10,6 +10,12 @@
         "com.borismus.webintent": {
             "PACKAGE_NAME": "es.crsur.notimovil"
         },
+        "cordova-custom-config": {
+            "PACKAGE_NAME": "es.crsur.notimovil"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "es.crsur.notimovil"
+        },
         "cordova-plugin-file": {
             "PACKAGE_NAME": "es.crsur.notimovil"
         },
@@ -24,12 +30,6 @@
         },
         "phonegap-plugin-push": {
             "SENDER_ID": "831288533004",
-            "PACKAGE_NAME": "es.crsur.notimovil"
-        },
-        "cordova-custom-config": {
-            "PACKAGE_NAME": "es.crsur.notimovil"
-        },
-        "cordova-plugin-device": {
             "PACKAGE_NAME": "es.crsur.notimovil"
         }
     },

@@ -6,8 +6,10 @@ else
 	exit 0;
 fi
 
-exit 0;
-
+if (grep crsurn ./platforms/android/AndroidManifest.xml&>/dev/null)
+then
+	exit 0
+fi
 MANIFEST=./platforms/android/AndroidManifest.xml
 
 grep -q pathPattern $MANIFEST && { print "Manifest already modified. Nothing to do."; exit 0; }

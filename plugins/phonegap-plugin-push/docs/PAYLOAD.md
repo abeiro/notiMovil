@@ -563,7 +563,7 @@ If you use `%n%` in the `summaryText` of the JSON coming down from GCM it will b
 
 ## Action Buttons
 
-Your notification can include action buttons. If you wish to include an icon along with the button name they must be placed in the `res/drawable` directory of your Android project. Then you can send the following JSON from GCM:
+Your notification can include a maximum of three action buttons. If you wish to include an icon along with the button name they must be placed in the `res/drawable` directory of your Android project. Then you can send the following JSON from GCM:
 
 ```javascript
 {
@@ -1061,6 +1061,8 @@ For instance the following JSON:
 ```
 
 will produce a notification in the notification shade and call your `on('notification')` event handler.
+
+**NOTE:** The `on('notification')` event handler will **not** be called if Background App Refresh is disabled on the user's iOS device. (Settings > General > Background App Refresh)
 
 However if you want your `on('notification')` event handler called but no notification to be shown in the shader you would omit the `alert` property and send the following JSON to APNS:
 

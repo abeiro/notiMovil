@@ -29,7 +29,7 @@
         <preference name="StatusBarOverlaysWebView" value="true" />
         <preference name="StatusBarStyle" value="blackopaque" />
     </platform>
-	<plugin name="phonegap-plugin-push" spec="1.6.0">
-		<param name="SENDER_ID" value="831288533004" />
-	</plugin>
+    <plugin name="phonegap-plugin-push" spec="git://github.com/phonegap/phonegap-plugin-push.git">
+        <variable name="SENDER_ID" value="831288533004" />
+    </plugin>
 </widget>
