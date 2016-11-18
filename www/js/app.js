@@ -24,13 +24,13 @@ Client.prototype.pushServiceRegister=function() {
 	try {
 			pushManager=PushNotification.init({
 			android: {
-				senderID: "831288533004"
+				senderID: "734498272275"
 			},
 			browser: {
-				pushServiceURL: 'https://notimovil-93fac.firebaseio.com'
+				pushServiceURL: 'https://notimovil-3cc96.firebaseio.com'
 			},
 			ios: {
-				senderID: "831288533004",
+				senderID: "734498272275",
 				alert: "true",
 				badge: "false",
 				sound: "true"

@@ -66,9 +66,8 @@
     },
     "phonegap-plugin-push": {
         "source": {
-            "type": "git",
-            "url": "git://github.com/phonegap/phonegap-plugin-push.git",
-            "subdir": "."
+            "type": "registry",
+            "id": "phonegap-plugin-push@1.8.0"
         },
         "is_top_level": true,
         "variables": {

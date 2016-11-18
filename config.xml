@@ -30,6 +30,6 @@
         <preference name="StatusBarStyle" value="blackopaque" />
     </platform>
     <plugin name="phonegap-plugin-push" spec="git://github.com/phonegap/phonegap-plugin-push.git">
-        <variable name="SENDER_ID" value="831288533004" />
+        <variable name="SENDER_ID" value="734498272275" />
     </plugin>
 </widget>
