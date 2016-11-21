@@ -30,10 +30,11 @@ Client.prototype.pushServiceRegister=function() {
 				pushServiceURL: 'https://notimovil-3cc96.firebaseio.com'
 			},
 			ios: {
-				senderID: "734498272275",
-				alert: "true",
-				badge: "false",
-				sound: "true"
+				"senderID": "734498272275",
+				"alert": "true",
+				"badge": "true",
+				"sound": "true",
+				"gcmSandbox":"true"
 			},
 			windows: {}
 		});
@@ -52,6 +53,9 @@ Client.prototype.pushServiceRegister=function() {
 			// data.additionalData
 			console.log(data);
 			_this.list();
+			pushManager.finish(function() {
+				console.log("processing of push data is finished");
+			});
 		});
 
 		pushManager.on('error', function(e) {
