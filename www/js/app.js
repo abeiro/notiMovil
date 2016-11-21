@@ -373,6 +373,7 @@ function initSystem() {
 		});
 	} catch (e) {}
 	*/
+	/*
 	try {
 		var serviceName = 'com.red_folder.phonegap.plugin.backgroundservice.NotiMovilService';
 		var factory = cordova.require('com.red_folder.phonegap.plugin.backgroundservice.BackgroundService')
@@ -438,7 +439,7 @@ function initSystem() {
 			
 			
 		});
-	} catch (e) {}
+	} catch (e) {}*/
 	
 	try {
 		fr=window.localStorage.getItem("FIRSTRUN");
