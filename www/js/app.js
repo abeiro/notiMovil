@@ -54,15 +54,16 @@ Client.prototype.pushServiceRegister=function() {
 			// data.additionalData
 			console.log(data);
 			_this.list();
-			if (data.additionalData.unreaded>0) {
-				if ((data.sound!="")&&(data.sound.indexOf("caf")>0)) {
-					var audio = new Audio('softbells.caf');
-					audio.play();
-				} else {
-					var audio = new Audio('softbells.ogg');
-					audio.play();
-				}
+			if ((data.additionalData.unreaded!=null)&&(data.additionalData.unreaded>0)) {
+				var audio = new Audio('softbells.ogg');
+				audio.play();
+
+			} else if (data.additionalData["gcm.notification.unreaded"]!=null)&&(data.additionalData["gcm.notification.unreaded"]>0) 
+				var audio = new Audio('softbells.caf');
+				audio.play();
 			}
+			
+			
 			pushManager.finish(function() {
 				console.log("processing of push data is finished");
 			});
