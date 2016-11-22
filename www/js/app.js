@@ -55,8 +55,13 @@ Client.prototype.pushServiceRegister=function() {
 			console.log(data);
 			_this.list();
 			if (data.additionalData.unreaded>0) {
-				var audio = new Audio('softbells.ogg');
-				audio.play();
+				if ((data.sound!="")&&(data.sound.indexOf("caf")>0)) {
+					var audio = new Audio('softbells.caf');
+					audio.play();
+				} else {
+					var audio = new Audio('softbells.ogg');
+					audio.play();
+				}
 			}
 			pushManager.finish(function() {
 				console.log("processing of push data is finished");
