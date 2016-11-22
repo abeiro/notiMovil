@@ -490,9 +490,7 @@ function initSystem() {
 		client.login($("#user").val(),$("#password").val());
 	});
 	
-	document.addEventListener("resume", function() {
-		client.connect();
-	}, false);
+	
 	
 	$('#exitApp').click(function() { 
 		navigator.app.exitApp();
@@ -548,7 +546,10 @@ function initSystem() {
 		}
 	});
 	
-	
+	document.addEventListener("resume", function() {
+		console.log("Resuming.....");
+		client.connect();
+	}, false);
 	/* Prevent exit on back button */
 	/*document.addEventListener("backbutton", function(e){
        if($.mobile.activePage.is('#index')){
