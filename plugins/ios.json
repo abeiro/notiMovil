@@ -8,33 +8,37 @@
     },
     "installed_plugins": {
         "com.borismus.webintent": {
-            "PACKAGE_NAME": "es.crsur.notimovil"
+            "PACKAGE_NAME": "es.crsur.notimovilx"
         },
         "cordova-custom-config": {
-            "PACKAGE_NAME": "es.crsur.notimovil"
+            "PACKAGE_NAME": "es.crsur.notimovilx"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "es.crsur.notimovilx"
         },
         "cordova-plugin-file": {
-            "PACKAGE_NAME": "es.crsur.notimovil"
-        },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "es.crsur.notimovil"
+            "PACKAGE_NAME": "es.crsur.notimovilx"
         },
         "cordova-plugin-file-opener2": {
-            "PACKAGE_NAME": "es.crsur.notimovil"
+            "PACKAGE_NAME": "es.crsur.notimovilx"
         },
         "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "es.crsur.notimovil"
+            "PACKAGE_NAME": "es.crsur.notimovilx"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "es.crsur.notimovilx"
+        },
+        "phonegap-plugin-push": {
+            "SENDER_ID": "831288533004",
+            "PACKAGE_NAME": "es.crsur.notimovilx"
         }
     },
     "dependent_plugins": {
-        "cordova-plugin-device": {
-            "PACKAGE_NAME": "es.crsur.notimovil"
-        },
         "cordova-plugin-browsersync": {
-            "PACKAGE_NAME": "es.crsur.notimovil"
+            "PACKAGE_NAME": "es.crsur.notimovilx"
         },
         "cordova-plugin-compat": {
-            "PACKAGE_NAME": "es.crsur.notimovil"
+            "PACKAGE_NAME": "es.crsur.notimovilx"
         }
     }
 }

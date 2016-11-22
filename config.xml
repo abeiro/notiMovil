@@ -26,8 +26,8 @@
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
-        <preference name="StatusBarOverlaysWebView" value="true" />
-        <preference name="StatusBarStyle" value="blackopaque" />
+        <preference name="StatusBarOverlaysWebView" value="false" />
+	<preference name="StatusBarBackgroundColor" value="#000000" />
     </platform>
     <plugin name="phonegap-plugin-push" spec="git://github.com/phonegap/phonegap-plugin-push.git">
         <variable name="SENDER_ID" value="734498272275" />
