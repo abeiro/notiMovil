@@ -123,6 +123,10 @@ Client.prototype.connect = function () {
 				if (pushManager==null)
 					_this.pushServiceRegister();
 				_this.list();
+				document.addEventListener("resume", function() {
+					console.log("Resuming.....");
+					_this.connect();
+				}, false);
 			}
 ;
         },
@@ -546,10 +550,7 @@ function initSystem() {
 		}
 	});
 	
-	document.addEventListener("resume", function() {
-		console.log("Resuming.....");
-		client.connect();
-	}, false);
+	
 	/* Prevent exit on back button */
 	/*document.addEventListener("backbutton", function(e){
        if($.mobile.activePage.is('#index')){
