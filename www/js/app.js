@@ -58,7 +58,7 @@ Client.prototype.pushServiceRegister=function() {
 				var audio = new Audio('softbells.ogg');
 				audio.play();
 
-			} else if (data.additionalData["gcm.notification.unreaded"]!=null)&&(data.additionalData["gcm.notification.unreaded"]>0) 
+			} else if ((data.additionalData["gcm.notification.unreaded"]!=null)&&(data.additionalData["gcm.notification.unreaded"]>0)) {
 				var audio = new Audio('softbells.caf');
 				audio.play();
 			}
