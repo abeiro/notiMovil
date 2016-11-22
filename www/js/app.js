@@ -123,10 +123,13 @@ Client.prototype.connect = function () {
 				if (pushManager==null)
 					_this.pushServiceRegister();
 				_this.list();
-				document.addEventListener("resume", function() {
-					console.log("Resuming.....");
-					_this.connect();
-				}, false);
+				if (_this.resumeListening==null) {
+					document.addEventListener("resume", function() {
+						console.log("Resuming.....");
+						_this.connect();
+					}, false);
+					_this.resumeListening=true;
+				} 
 			}
 ;
         },
