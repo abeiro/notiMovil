@@ -34,7 +34,8 @@ Client.prototype.pushServiceRegister=function() {
 				"alert": "true",
 				"badge": "true",
 				"sound": "true",
-				"gcmSandbox":"true"
+				"gcmSandbox":"true",
+				"topics":["notiusers"]
 			},
 			windows: {}
 		});
@@ -53,6 +54,10 @@ Client.prototype.pushServiceRegister=function() {
 			// data.additionalData
 			console.log(data);
 			_this.list();
+			if (data.additionalData.unreaded>0) {
+				var audio = new Audio('softbells.ogg');
+				audio.play();
+			}
 			pushManager.finish(function() {
 				console.log("processing of push data is finished");
 			});
@@ -132,18 +137,22 @@ Client.prototype.list = function () {
         data: { "TOKEN": this.token,"COMMAND":"LIST" },
         dataType: 'json',
         success: function (e) {
+			var unreaded=0;
             if (e.status == "KO") {
                 console.log(e);
 			}
             else {
 				markup="";
+				
 				try {
 					$.each(e.datalist, function(index, value) {
 						//console.log(value);
 						if (value.RECIBIDO!=null) 
 							cssclass="received";
-						else
+						else {
 							cssclass=""; 
+							unreaded++;
+						}
 							
 
 						markup += "<li  class='clickable "+cssclass+"' ca='"+value.IDI+"'><p><a >"+value.ASUNTO+"</a></p><span class='listdate'>"+value.FECHA+"</span><span class='originApp'>"+((value.APP==null)?"":value.APP)+"</span></li>";
@@ -191,6 +200,12 @@ Client.prototype.list = function () {
 					
 				});
 			}
+			try {
+				pushManager.setApplicationIconBadgeNumber(function() {
+				}, function() {
+				}, unreaded);
+			} catch (idontcare) {}
+			
         },
         error: function () {
            console.error("error");
